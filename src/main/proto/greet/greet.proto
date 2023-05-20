@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package greet;
+
+option java_package = "com.proto.greet";
+
+option java_multiple_files = true;
+
+message Greeting{
+  string firstname = 1;
+  string lastName = 2;
+}
+
+message GreetRequest {
+  Greeting greet = 1;
+}
+
+message GreetingResponse {
+  string result = 1;
+}
+
+message GreetManyTimesRequest{
+  Greeting greet = 1;
+}
+
+message GreetManyTimesResponse{
+  string result = 1;
+}
+
+message LongGreetRequest{
+  Greeting greet = 1;
+}
+
+message LongGreetResponse {
+  string result = 1;
+}
+
+message GreetEveryoneRequest{
+  Greeting greet = 1;
+}
+
+message GreetEveryoneResponse{
+  string result = 1;
+}
+
+message GreetWithDeadLineRequest {
+  Greeting greet = 1;
+}
+
+message GreetWithDeadLineResponse {
+  string result = 1;
+}
+
+service GreetService {
+  //unary
+  rpc Greet(GreetRequest) returns (GreetingResponse) {};
+
+  //stream server
+  rpc GreetManyTimes(GreetManyTimesRequest) returns (stream GreetManyTimesResponse) {};
+
+  //stream client
+  rpc LongGreet(stream LongGreetRequest) returns (LongGreetResponse) {};
+
+  //stream BiDi
+  rpc GreetEveryone(stream GreetEveryoneRequest) returns (stream GreetEveryoneResponse) {};
+
+  // deadLine
+  rpc GreetWithDeadLine(GreetWithDeadLineRequest) returns (GreetWithDeadLineResponse) {};
+}

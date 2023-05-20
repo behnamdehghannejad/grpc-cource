@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package calculator;
+
+option java_package = "com.proto.calculator";
+option java_multiple_files = true;
+
+message SumRequest {
+  int32 firstNumber = 1;
+  int32 secondNumber = 2;
+}
+
+message CalculatorResponse {
+  int32 result = 1;
+}
+
+message PrimeNumberDecompositionRequest{
+  int64 number = 1;
+}
+
+message PrimeNumberDecompositionResponse{
+  int64 primeNumber = 1;
+}
+
+message ComputeAverageRequest{
+  int32 number = 1;
+}
+
+message ComputeAverageResponse{
+  double result =1;
+}
+
+message FindMaximumRequest{
+  int32 number = 1;
+}
+
+message FindMaximumResponse{
+  int32 result = 1;
+}
+
+message SquareRootRequest {
+  int32 number = 1;
+}
+
+message SquareRootResponse {
+  double root_number = 1;
+}
+
+service CalculatorService {
+  //unary
+  rpc Sum(SumRequest) returns (CalculatorResponse) {};
+
+  //stream server
+  rpc PrimeNumberDecomposition(PrimeNumberDecompositionRequest) returns (stream PrimeNumberDecompositionResponse) {};
+
+  //stream client
+  rpc ComputeAverage(stream ComputeAverageRequest) returns (ComputeAverageResponse) {};
+
+  // BiDi
+  rpc FindMaximum(stream FindMaximumRequest) returns (stream FindMaximumResponse) {};
+
+  // error handling
+  rpc SquareRoot(SquareRootRequest) returns (SquareRootResponse) {};
+}
